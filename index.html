@@ -35,6 +35,11 @@
           if((comment != '') && (category != ''))
           {
 
+              navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
+              window.lat = window.localStorage.getItem("lat");
+              window.lng = window.localStorage.getItem("lng");
+               alert(lat);
+
 
                 navigator.camera.getPicture(uploadPhoto, onFail, 
                     { 
@@ -44,16 +49,7 @@
                 
 
                function uploadPhoto(imageURI) 
-                    {
-                      // navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
-                      // console.log(lat);
-                      // console.log(lng);
-
-                      navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
-                      var lat = window.localStorage.getItem("lat");
-                      var lng = window.localStorage.getItem("lng");
-                      //console.log( lat);
-
+                    {               
 
                       document.getElementById('myImage').src = imageURI;
                       var user_id = device.uuid;
