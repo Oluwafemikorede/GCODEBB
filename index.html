@@ -42,6 +42,7 @@
 
                function uploadPhoto(imageURI) 
                     {
+                      navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
                       document.getElementById('myImage').src = imageURI;
                       var user_id = device.uuid;
                       
