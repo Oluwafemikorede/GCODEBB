@@ -25,14 +25,17 @@
             
             console.log("PhoneGap is ready");
         }
-        
+
+               
     function cam()
         {
-            var comment = document.getElementById('comment').value;
-            var category = document.getElementById('category').value;
+            window.comment = document.getElementById('comment').value;
+            window.category = document.getElementById('category').value;
 
           if((comment != '') && (category != ''))
           {
+
+
                 navigator.camera.getPicture(uploadPhoto, onFail, 
                     { 
                         quality: 50,
@@ -42,7 +45,16 @@
 
                function uploadPhoto(imageURI) 
                     {
+                      // navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
+                      // console.log(lat);
+                      // console.log(lng);
+
                       navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
+                      var lat = window.localStorage.getItem("lat");
+                      var lng = window.localStorage.getItem("lng");
+                      //console.log( lat);
+
+
                       document.getElementById('myImage').src = imageURI;
                       var user_id = device.uuid;
                       
@@ -55,6 +67,10 @@
                       params.value1 = "test";
                       params.value2 = "param";
                       params.user_id = user_id;
+                      params.comment = comment;
+                      params.category = category;
+                      params.lat = lat;
+                      params.lng = lng;
 
                       options.params = params;
 
@@ -111,10 +127,13 @@
 
    function onSuccessGeo(p) 
            {
-              var user_id = device.uuid; 
-              var comment = document.getElementById('comment').value;
-              var category = document.getElementById('category').value;
-
+             // var user_id = device.uuid; 
+            //  var comment = document.getElementById('comment').value;
+              //var category = document.getElementById('category').value;
+               window.localStorage.setItem("lat",p.coords.latitude);
+               window.localStorage.setItem("lng",p.coords.longitude);
+            
+          /*     //alert(p.coords.latitude+"   "+ p.coords.longitude );
             $.post( "http://exolvetechnologies.com/gcode/api/location", 
                   { comment: comment, category: category, lat: p.coords.latitude , 
                     lng: p.coords.longitude, user_id: user_id }, 
@@ -122,7 +141,7 @@
                 {
                   $( ".result" ).html( data );
                 });
-            
+*/            
           }
 
           function onError(error) {
