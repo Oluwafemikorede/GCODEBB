@@ -13,15 +13,7 @@
     <link href="css/extras.css" rel="stylesheet"> 
     
      <script>
-     $(document).ready(function(){
-       navigator.geolocation.getCurrentPosition(setCoord, onError);
-       function setCoord(p)
-       {
-        document.getElementById('lat').value = p.coords.latitude;
-        document.getElementById('lng').value = p.coords.longitude;
-       }
-
-     });
+     
         // Set virtual screen width size to 640 pixels
         //monaca.viewport({width: 640});
        
@@ -43,9 +35,12 @@
           var category = document.getElementById('category').value; 
           var lat = document.getElementById('lat').value; 
           var lng = document.getElementById('lng').value; 
+          //var lat = 'null'; 
+          //var lng = 'null'; 
           // var lat = window.localStorage.getItem("lat");
           // var lng = window.localStorage.getItem("lng");
-        alert(lat);
+          // alert(lat);
+           alert(lat+ +lng);  
           var user_id = device.uuid;
 
           if((comment != '') && (category != ''))
@@ -61,7 +56,7 @@
 
                function uploadPhoto(imageURI) 
                     {               
-                         alert(lat+ +lng);    
+                          
                       document.getElementById('myImage').src = imageURI;
                      
                                             
@@ -83,7 +78,7 @@
                       ft.upload(imageURI, 
                         "http://exolvetechnologies.com/gcode/api/upload", win, fail, options);
 
-                      //navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
+                     // navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
                          
                     }
                   
@@ -227,7 +222,15 @@
      <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
    <script >
-  
+  $(document).ready(function(){
+       navigator.geolocation.getCurrentPosition(setCoord, onError);
+       function setCoord(p)
+       {
+        document.getElementById('lat').value = p.coords.latitude;
+        document.getElementById('lng').value = p.coords.longitude;
+       }
+
+     });
     </script>
   </body>
 </html>
