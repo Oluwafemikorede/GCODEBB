@@ -17,8 +17,8 @@
        navigator.geolocation.getCurrentPosition(setCoord, onError);
        function setCoord(p)
        {
-        window.localStorage.setItem("lat",p.coords.latitude);
-        window.localStorage.setItem("lng",p.coords.longitude);
+        document.getElementById('lat').value = p.coords.latitude;
+        document.getElementById('lng').value = p.coords.longitude;
        }
 
      });
@@ -41,8 +41,10 @@
         {
           var comment = document.getElementById('comment').value;
           var category = document.getElementById('category').value; 
-          var lat = window.localStorage.getItem("lat");
-          var lng = window.localStorage.getItem("lng");
+          var lat = document.getElementById('lat').value; 
+          var lng = document.getElementById('lng').value; 
+          // var lat = window.localStorage.getItem("lat");
+          // var lng = window.localStorage.getItem("lng");
         alert(lat);
           var user_id = device.uuid;
 
@@ -209,6 +211,8 @@
                     </div>                   
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <textarea id="comment" rows="5" class="text-element1"></textarea>
+                        <input type="hidden" id="lat" value="">
+                        <input type="hidden" id="lng" value="">
                     </div>           
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
                         <button class="btn btn-success text-btn" id="send" onclick="send();" ><i class="fa fa-upload"></i> Send</button>
