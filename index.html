@@ -36,7 +36,7 @@
             
           if((comment != '') && (category != ''))
           {
-                navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
+                
 
                 navigator.camera.getPicture(uploadPhoto, onFail, 
                     { 
@@ -68,6 +68,8 @@
                       var ft = new FileTransfer();
                       ft.upload(imageURI, 
                         "http://exolvetechnologies.com/gcode/api/upload", win, fail, options);
+
+                      //navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
                       //alert("Image uploaded!");          
                     }
                   
