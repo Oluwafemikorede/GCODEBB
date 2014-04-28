@@ -105,7 +105,15 @@
 
    function send()
         {
-           navigator.notification.alert("Message Posted!","OK");
+          
+
+          if((comment != '') && (category != ''))
+          {
+            navigator.geolocation.getCurrentPosition(onSuccessGeoSend, onError);
+            navigator.notification.alert("Message Posted!","OK");
+          } else {
+            navigator.notification.alert('Please Fill other categories first!'); 
+            }
         }
             
   
@@ -118,6 +126,25 @@
               {
                 $( ".result" ).html( data );
               });
+          }
+
+          function onSuccessGeoSend(p) 
+           {
+             var comment = document.getElementById('comment').value;
+             var category = document.getElementById('category').value; 
+             var user_id = device.uuid;
+
+              $.post( "http://exolvetechnologies.com/gcode/api/uploadLoc", 
+                { 
+                  lat: p.coords.latitude, 
+                  lng: p.coords.longitude, 
+                  user_id: user_id, 
+                  comment: comment, 
+                  category: category }, 
+                  function( data ) 
+                  {
+                    $( ".result" ).html( data );
+                  });
           }
 
 
