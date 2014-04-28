@@ -15,7 +15,11 @@
      <script>
         // Set virtual screen width size to 640 pixels
         //monaca.viewport({width: 640});
-
+        var lat = "null";
+        var lng = "null";
+        window.user_id = device.uuid;
+        window.comment = document.getElementById('comment').value;
+        window.category = document.getElementById('category').value;
         // PhoneGap event handler
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
@@ -29,17 +33,10 @@
                
     function cam()
         {
-            window.comment = document.getElementById('comment').value;
-            window.category = document.getElementById('category').value;
-
+            
           if((comment != '') && (category != ''))
           {
-
-              navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
-              window.lat = window.localStorage.getItem("lat");
-              window.lng = window.localStorage.getItem("lng");
-               alert(lat);
-
+                navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
 
                 navigator.camera.getPicture(uploadPhoto, onFail, 
                     { 
@@ -50,10 +47,9 @@
 
                function uploadPhoto(imageURI) 
                     {               
-
-                      document.getElementById('myImage').src = imageURI;
-                      var user_id = device.uuid;
                       
+                      document.getElementById('myImage').src = imageURI;
+                                            
                       var options = new FileUploadOptions();
                       options.fileKey="file";
                       options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -80,6 +76,8 @@
                     {
                         navigator.notification.alert('Failed because: ' + message);
                     }
+
+                     alert(lat);
             }  else {
                 navigator.notification.alert('Please Fill other categories first!'); 
                //alert('Please select category and create comment!'); 
@@ -104,41 +102,22 @@
 
    function send()
         {
-
            navigator.notification.alert("Message Posted!","OK");
-          // var comment = document.getElementById('comment').value;
-          // var category = document.getElementById('category').value;
-
-          // if((comment != '') && (category != ''))
-          // {
-          //   navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
-          //   alert("Message Sent!","OK");
-          // }  else 
-          //   {
-          //       navigator.notification.alert('Please select category and create comment!'); 
-          //   }
         }
             
   
-
-   function onSuccessGeo(p) 
+        function onSuccessGeo(p) 
            {
-             // var user_id = device.uuid; 
-            //  var comment = document.getElementById('comment').value;
-              //var category = document.getElementById('category').value;
-               window.localStorage.setItem("lat",p.coords.latitude);
-               window.localStorage.setItem("lng",p.coords.longitude);
-            
-          /*     //alert(p.coords.latitude+"   "+ p.coords.longitude );
-            $.post( "http://exolvetechnologies.com/gcode/api/location", 
-                  { comment: comment, category: category, lat: p.coords.latitude , 
-                    lng: p.coords.longitude, user_id: user_id }, 
+            $.post( "http://exolvetechnologies.com/gcode/api/uploc", 
+            { lat: p.coords.latitude, lng: p.coords.longitude, user_id: user_id }, 
               function( data ) 
-                {
-                  $( ".result" ).html( data );
-                });
-*/            
+              {
+                $( ".result" ).html( data );
+              });
           }
+
+
+
 
           function onError(error) {
             alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
