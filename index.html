@@ -15,11 +15,8 @@
      <script>
         // Set virtual screen width size to 640 pixels
         //monaca.viewport({width: 640});
-        window.lat = "null";
-        window.lng = "null";
-        window.user_id = device.uuid;
-        window.comment = document.getElementById('comment').value;
-        window.category = document.getElementById('category').value;
+       
+        
         // PhoneGap event handler
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
@@ -33,7 +30,12 @@
                
     function cam()
         {
-            
+          var comment = document.getElementById('comment').value;
+          var category = document.getElementById('category').value; 
+          var lat = "null";
+          var lng = "null";
+          var user_id = device.uuid;
+
           if((comment != '') && (category != ''))
           {
                 
@@ -49,7 +51,7 @@
                     {               
                       
                       document.getElementById('myImage').src = imageURI;
-                      var u_id = device.uuid;
+                     
                                             
                       var options = new FileUploadOptions();
                       options.fileKey="file";
@@ -57,7 +59,7 @@
                       options.mimeType="image/jpeg";
 
                       var params = new Object();
-                      params.user_id = u_id;
+                      params.user_id = user_id;
                       params.comment = comment;
                       params.category = category;
                       params.lat = lat;
@@ -69,7 +71,7 @@
                       ft.upload(imageURI, 
                         "http://exolvetechnologies.com/gcode/api/upload", win, fail, options);
 
-                      //navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
+                     // navigator.geolocation.getCurrentPosition(onSuccessGeo, onError);
                       //alert("Image uploaded!");          
                     }
                   
@@ -109,6 +111,7 @@
   
         function onSuccessGeo(p) 
            {
+            var user_id = device.uuid;
             $.post( "http://exolvetechnologies.com/gcode/api/uploc", 
             { lat: p.coords.latitude, lng: p.coords.longitude, user_id: user_id }, 
               function( data ) 
