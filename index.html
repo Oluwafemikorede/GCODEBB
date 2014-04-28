@@ -15,8 +15,8 @@
      <script>
         // Set virtual screen width size to 640 pixels
         //monaca.viewport({width: 640});
-        var lat = "null";
-        var lng = "null";
+        window.lat = "null";
+        window.lng = "null";
         window.user_id = device.uuid;
         window.comment = document.getElementById('comment').value;
         window.category = document.getElementById('category').value;
@@ -49,6 +49,7 @@
                     {               
                       
                       document.getElementById('myImage').src = imageURI;
+                      var u_id = device.uuid;
                                             
                       var options = new FileUploadOptions();
                       options.fileKey="file";
@@ -56,9 +57,7 @@
                       options.mimeType="image/jpeg";
 
                       var params = new Object();
-                      params.value1 = "test";
-                      params.value2 = "param";
-                      params.user_id = user_id;
+                      params.user_id = u_id;
                       params.comment = comment;
                       params.category = category;
                       params.lat = lat;
@@ -77,7 +76,7 @@
                         navigator.notification.alert('Failed because: ' + message);
                     }
 
-                     alert(lat);
+                    
             }  else {
                 navigator.notification.alert('Please Fill other categories first!'); 
                //alert('Please select category and create comment!'); 
